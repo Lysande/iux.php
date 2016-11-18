@@ -1,0 +1,5 @@
+{
+    "require": {
+        "peridot-php/peridot": "~1.15"
+    }
+}
