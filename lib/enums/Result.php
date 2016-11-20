@@ -12,6 +12,17 @@ class Result implements \iux\interfaces\IResult
     $this->value = $value;
   }
 
+
+  public function isOk()
+  {
+    return !$this->isErr();
+  }
+
+  public function isErr()
+  {
+    return $this->value instanceof \Exception;
+  }
+
   public function unwrap()
   {
     return $this->value;

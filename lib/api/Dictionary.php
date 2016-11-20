@@ -1,7 +1,7 @@
 <?php
   namespace iux\api;
 
-  class Dictionary extends \iux implements \iux\interfaces\ICollection
+  class Dictionary extends Collection
   {
 
     use \iux\traits\Iterable;

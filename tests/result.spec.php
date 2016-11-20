@@ -12,12 +12,23 @@
 
         assert($ok instanceof Result, "expected Result");
       });
+
+
+      it("should report `true` through isOk", function () {
+        $ok = Result::Ok(1);
+        assert($ok->isOk(), "expected `true`");
+      });
     });
 
     describe("::Err", function () {
       it("should be instanceof Result", function () {
         $err = Result::Err("An error message");
         assert($err instanceof Result, "expected Result");
+      });
+
+      it("should report `true` through isErr", function () {
+        $err = Result::Err("An error message");
+        assert($err->isErr(), "expected `true`");
       });
     });
 
