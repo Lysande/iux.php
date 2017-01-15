@@ -2,7 +2,7 @@
   // Include index.php, which sets up our autoloader.
   include(getcwd() . "/index.php");
 
-  use \iux\enums\Result as Result;
+  use \iux\api\Result as Result;
 
   describe("iux::enums::Result", function () {
 

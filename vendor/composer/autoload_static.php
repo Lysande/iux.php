@@ -21,6 +21,8 @@ class ComposerStaticInit539b02b241892bb518d6afd683aa6cab
         array (
             'Psr\\Log\\' => 8,
             'Peridot\\Scope\\' => 14,
+            'Peridot\\Reporter\\ListReporter\\' => 30,
+            'Peridot\\Reporter\\Dot\\' => 21,
             'Peridot\\' => 8,
         ),
     );
@@ -45,6 +47,14 @@ class ComposerStaticInit539b02b241892bb518d6afd683aa6cab
         'Peridot\\Scope\\' => 
         array (
             0 => __DIR__ . '/..' . '/peridot-php/peridot-scope/src',
+        ),
+        'Peridot\\Reporter\\ListReporter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/peridot-php/peridot-list-reporter/src',
+        ),
+        'Peridot\\Reporter\\Dot\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/peridot-php/peridot-dot-reporter/src',
         ),
         'Peridot\\' => 
         array (

@@ -6,16 +6,20 @@
   {
     public function map($fn)
     {
+
     }
+
     public function filter($fn)
     {
 
     }
-    public function each($fn)
+
+    public function reduce($fn)
     {
 
     }
-    public function reduce($fn)
+
+    public function each($fn)
     {
 
     }

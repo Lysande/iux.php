@@ -2,31 +2,38 @@
 
 class iux
 {
-  protected $value;
+  protected $result;
+  protected static $error;
 
   /**
     * Should constructor oarams have internal error handling?
   */
-  function __construct($value, $validator, $error)
+  function __construct($result)
   {
-    if ($validator($value))
+    if (self::validator($result))
     {
-      $this->value = \iux\enums\Result::Ok($value);
+      $this->result = \iux\api\Result::Ok($result);
     }
     else
     {
-      $this->value = \iux\enums\Result::Err($error);
+      $this->result = \iux\api\Result::Err(self::error);
     }
 
   }
 
-  public function get()
+  protected static function validator($value) { return true; }
+
+  public function result()
   {
-    return $this->value;
+    return $this->result;
   }
 
-  static public function from($value, $validator, $error)
+  public static function from($result)
   {
-    return new static($value, $validator, $error);
+    $validator = function ($value)
+    {
+      return self::validator($value);
+    };
+    return new static($result, $validator, self::$error);
   }
 }

@@ -1,5 +1,9 @@
 {
     "require": {
         "peridot-php/peridot": "~1.15"
+    },
+    "require-dev": {
+        "peridot-php/peridot-list-reporter": "~1.0",
+        "peridot-php/peridot-dot-reporter": "~1.0"
     }
 }

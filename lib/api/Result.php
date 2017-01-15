@@ -1,6 +1,6 @@
 <?php
 
-namespace iux\enums;
+namespace iux\api;
 
 class Result implements \iux\interfaces\IResult
 {
