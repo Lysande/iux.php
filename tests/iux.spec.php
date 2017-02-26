@@ -9,20 +9,30 @@
       $error = "Not an array";
 
       it("should contain a Result on creation", function () use($validator, $error) {
-        $res = (new iux(1, $validator, $error))->result();
+        $res = (new iux(1))->result();
         assert($res instanceof \iux\api\Result, "expected Result");
       });
 
       it("... and when using ::from", function () use($validator, $error) {
-        $res = iux::from(1, $validator, $error)->result();
+        $res = iux::from(1)->result();
         assert($res instanceof \iux\api\Result, "expected Result");
       });
 
       it("should contain Ok on good input", function () use($validator, $error) {
         $value = ["a" => 1, "b" => 2];
-        $iux = new iux($value, $validator, $error);
+        $iux = new iux($value);
 
         assert(is_array($iux->result()->unwrap()), "expected an array");
+      });
+
+      it("Should propagate errors", function () {
+        $error = \iux\api\Result::Err("FUBAR");
+        $iux = new iux($error);
+        assert(
+          $iux->result()->isErr()
+          && $iux->result()->unwrap()->getMessage() == "FUBAR",
+          "Expected error propagation"
+        );
       });
     });
   });

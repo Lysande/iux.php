@@ -4,7 +4,14 @@ namespace iux\api;
 
 class Result implements \iux\interfaces\IResult
 {
-
+/**
+ * Add support for endless wrapping, i.e.
+ * Result::Ok(
+ *  Result::Ok(
+ *    Result::Err("Some err")
+ *  )
+ * )->unwrap() returns the innermost Exception, not another result.
+ */
   protected $value;
 
   function __construct($value)
@@ -35,7 +42,11 @@ class Result implements \iux\interfaces\IResult
 
   public static function Err($error)
   {
-    $exception = new \Exception($error);
-    return new Result($exception);
+    if (!($error instanceof \Exception))
+    {
+      $error = new \Exception($error);
+    }
+
+    return new Result($error);
   }
 }

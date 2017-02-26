@@ -1,27 +1,29 @@
 <?php
 
+  use \iux\api\Result as Result;
+
 class iux
 {
   protected $result;
-  protected static $error;
+  protected $error;
+  protected function validator($value) { return true; }
 
-  /**
-    * Should constructor oarams have internal error handling?
-  */
   function __construct($result)
   {
-    if (self::validator($result))
+    if ($result instanceof Result)
     {
-      $this->result = \iux\api\Result::Ok($result);
+      $this->result = $result;
+    }
+    else if ($this->validator($result))
+    {
+      $this->result = Result::Ok($result);
     }
     else
     {
-      $this->result = \iux\api\Result::Err(self::error);
+      $this->result = Result::Err($this->error);
     }
 
   }
-
-  protected static function validator($value) { return true; }
 
   public function result()
   {
@@ -30,10 +32,6 @@ class iux
 
   public static function from($result)
   {
-    $validator = function ($value)
-    {
-      return self::validator($value);
-    };
-    return new static($result, $validator, self::$error);
+    return new static($result);
   }
 }

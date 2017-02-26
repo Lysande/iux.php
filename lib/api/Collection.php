@@ -2,42 +2,46 @@
 
 namespace iux\api;
 
-use \iux\enums\Result as Result;
+use \iux\api\Result as Result;
 
 class Collection extends \iux implements \iux\interfaces\ICollection
 {
-  const ERR_NOT_AN_ARRAY = "The value given is not an array";
-  const ERR_NO_PARAMETERS = "One or more parameters are missing";
-
   use \iux\traits\Iterable;
+
+  const ERR_NOT_A_COLLECTION = "The value given is not a collection";
+  const ERR_NO_PARAMETERS = "One or more parameters are missing";
+  const ERR_UNDEFINED_INDEX = "Undefined index";
+
+  protected $error;
+  protected function validator($value) { return is_array($value); }
 
   function __construct($value)
   {
-    parent::__construct($value, "is_array", self::ERR_NOT_AN_ARRAY);
+    $this->error = self::ERR_NOT_A_COLLECTION;
+    parent::__construct($value);
   }
 
-  /**
-   * use default null values to keep PHP from throwing errors.
-   * PHP errors are not chainable.
-   */
-  public function add($k = NULL, $v = NULL)
-  {
-    if ($this->value->isErr()) return $this->value;
 
-    if (!isset($k) || !isset($v))
+  public function get($k)
+  {
+    if($this->result->isErr())
     {
-      $this->value = Result::Err(self::ERR_NO_PARAMETERS);
-    }
-    else
-    {
-      $this->value = array_merge($this->value, [$k => $v]);
+      return new Collection($this->result);
     }
 
-    return new Collection($this->value);
+    $collection = $this->result->unwrap();
+
+    if (array_key_exists($k, $collection))
+    {
+      return Result::Ok($collection[$k]);
+    }
+
+    return Result::Err(self::ERR_UNDEFINED_INDEX);
   }
 
-  public function remove($k)
-  {
+  public function values() {}
+  public function keys() {}
 
-  }
+  public function count() {}
+
 }
