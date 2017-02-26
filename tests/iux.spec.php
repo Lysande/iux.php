@@ -24,11 +24,6 @@
 
         assert(is_array($iux->result()->unwrap()), "expected an array");
       });
-
-      it("should contain Err on bad input", function () use($validator, $error) {
-        $iux = new iux("not a iux", $validator, $error);
-        assert($iux->result()->unwrap() instanceof Exception, "Expected an exception");
-      });
     });
   });
 ?>
