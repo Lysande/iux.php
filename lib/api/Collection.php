@@ -39,9 +39,24 @@ class Collection extends \iux implements \iux\interfaces\ICollection
     return Result::Err(self::ERR_UNDEFINED_INDEX);
   }
 
-  public function values() {}
-  public function keys() {}
+  public function values() {
+    if ($this->result->isErr())
+    {
+      return new Collection($this->result);
+    }
 
-  public function count() {}
+    return new Collection(array_values($this->result->unwrap()));
+  }
+
+  public function keys()
+  {
+    if ($this->result->isErr())
+    {
+      return new Collection($this->result);
+    }
+
+    return new Collection(array_keys($this->result->unwrap()));
+  }
+
 
 }

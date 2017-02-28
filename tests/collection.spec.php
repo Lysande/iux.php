@@ -42,7 +42,7 @@
        * count();
        */
 
-      describe("Collection::get($k)", function () {
+      describe("Collection::get(k)", function () {
         $collection = Collection::from([
           "a" => "foo",
           "b" => "bar",
@@ -84,15 +84,52 @@
 
         it("Should return a Result::Ok if no values exist", function () {
           $empty = new Collection([]);
-          assert($empty->result()->isOk(), "Expected Result::Ok");
+          assert($empty->values()->result()->isOk(), "Expected Result::Ok");
         });
 
         it("Should contain an empty array if no values exist", function () {
           $empty = new Collection([]);
           assert(
-            is_array($empty->result()->unwrap()) &&
-            count($empty->result()->unwrap()) == 0,
-            
+            is_array($empty->values()->result()->unwrap()) &&
+            count($empty->values()->result()->unwrap()) == 0,
+
+            "Expected []"
+          );
+        });
+      });
+
+
+      describe("Collection::keys()", function () {
+        /**
+         * Update this so it uses Sequences instead of regular arrays
+         * for the return value.
+         */
+        it("Should contain an array with the keys of the collection", function () {
+          $keys = Collection::from(["a" => "foo", "b" => "bar"])
+          ->keys()
+          ->result()
+          ->unwrap();
+
+          assert(
+            $keys[0] == "a" &&
+            $keys[1] == "b" &&
+            count($keys) == 2,
+
+            "Expected ['foo', 'bar']"
+          );
+        });
+
+        it("Should return a Result::Ok if no keys exist", function () {
+          $empty = new Collection([]);
+          assert($empty->keys()->result()->isOk(), "Expected Result::Ok");
+        });
+
+        it("Should contain an empty array if no keys exist", function () {
+          $empty = new Collection([]);
+          assert(
+            is_array($empty->keys()->result()->unwrap()) &&
+            count($empty->keys()->result()->unwrap()) == 0,
+
             "Expected []"
           );
         });

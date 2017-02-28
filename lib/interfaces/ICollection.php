@@ -21,6 +21,4 @@
 
     public function values();
     public function keys();
-
-    public function count();
   }
