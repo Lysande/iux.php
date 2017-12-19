@@ -138,7 +138,20 @@
 
     # Iterable
     describe("Iterable", function () {
+      describe("Collection::Iterable::map", function () {
+        it("Should transform the collection", function () {
+          $squares = Collection::from([1, 2, 3])
+          ->map(function ($n) { return n*n; });
 
+          assert(
+            $squares[0] == 1,
+            $squares[1] == 4,
+            $squares[2] == 9,
+
+            "Expected [1, 2, 3] -> [1, 4, 9]"
+          );
+        });
+      });
     });
 
 
